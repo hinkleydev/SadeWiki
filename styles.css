@@ -11,3 +11,75 @@
     padding: 1%;
   }
 }
+/* Existing layout */
+@media only screen and (min-width: 600px) {
+   html {
+     background-color: grey;
+  }
+
+  body {
+    background-color: white;
+    width: 50%;
+    align-content: center;
+    margin: auto;
+    padding: 1%;
+  }
+}
+
+/* Header styling */
+header {
+  background-color: #222;
+  color: white;
+  padding: 1em;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+header h1 a {
+  color: white;
+  text-decoration: none;
+}
+
+header nav {
+  margin-top: 0.5em;
+}
+
+header nav a {
+  color: #ddd;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+header nav a:hover {
+  color: #fff;
+}
+
+/* Main content */
+main {
+  margin: 2em 0;
+  line-height: 1.6;
+}
+
+/* Footer styling */
+footer {
+  background-color: #222;
+  color: white;
+  padding: 1em;
+  text-align: center;
+  border-radius: 0 0 8px 8px;
+  margin-top: 2em;
+}
+
+footer a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fff;
+}
