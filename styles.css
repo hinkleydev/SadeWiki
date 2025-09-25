@@ -1,13 +1,76 @@
-@media only screen and (min-width: 600px) {
-   html {
-     background-color: grey;
-  }
+html {
+  background-color: #101418;
+}
 
+body {
+  color: white;
+}
+
+@media only screen and (max-width: 600px) {
   body {
-    background-color: white;
-    width: 50%;
+    width: 90%;
     align-content: center;
     margin: auto;
     padding: 1%;
   }
+}
+
+@media only screen and (min-width: 600px) {
+  body {
+      width: 80%;
+      align-content: center;
+      margin: auto;
+      padding: 1%;
+  }
+}
+
+a {
+  color: rgb(136, 163, 232);
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(157, 178, 231);
+}
+
+/* Header styling */
+header {
+  padding: 1em;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+header h1 a {
+  color: white;
+  text-decoration: none;
+}
+
+header nav {
+  margin-top: 0.5em;
+}
+
+/* Main content */
+main {
+  margin: 2em 0;
+  line-height: 1.6;
+}
+
+/* Footer styling */
+footer {
+  padding: 1em;
+  text-align: center;
+  margin-top: 2em;
+}
+
+footer a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #fff;
 }

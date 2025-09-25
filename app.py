@@ -99,7 +99,6 @@ if __name__ == "__main__":
     shutil.copy("/" + css_file, output_directory + "/" + css_file)
 
     index = []
-
     for each_file in files:
         handler = open(each_file, "r")
         content = handler.read()
@@ -107,18 +106,44 @@ if __name__ == "__main__":
         soup = BeautifulSoup(html, 'html.parser')
         titles = soup.find_all("h1")
         title = ""
-        if len(titles) > 0: # if there is a H1, set it as a title
+        if len(titles) > 0:  # if there is a H1, set it as a title
             title = "<title>" + titles[0].string + "</title>\n"
         output_file = each_file.replace(".md", ".html")
         index.append(output_file)
+
         with open(output_directory + "/" + output_file, "w") as f:
+            f.write("<!DOCTYPE html>\n")
+            f.write("<html lang='en'>\n")
+            f.write("<head>\n")
             f.write(title)
-            f.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
-            f.write(f'<link rel="stylesheet" href="{css_file}">\n') # TODO: This should use an absolute URL
+            f.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n')
+            f.write(f'<link rel="stylesheet" href="{css_file}">\n')
+            f.write("</head>\n")
+            f.write("<body>\n")
+
+            # Header
+            f.write("<header>\n")
+            f.write("<nav>\n")
+            f.write("<a href='/index.html'>Home</a> | \n")
+            f.write(f"<a href='https://github.com/{REPO}'>Source</a>\n")
+            f.write("</nav>\n")
+            f.write("</header>\n")
+
+            # Main content
+            f.write("<main>\n")
             f.write(html + '\n')
-            f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a>')
-            f.write("<br>")
-            f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{each_file}">Edit this page</a>')
+            f.write("</main>\n")
+
+# Footer
+            f.write("<footer>\n")
+            f.write(f"<p>Made with <3 by the community - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
+
+            f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n')
+            f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{each_file}">Edit this page</a>\n')
+            f.write("</footer>\n")
+
+            f.write("</body>\n")
+            f.write("</html>\n")
 
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
