@@ -1,7 +1,8 @@
+html {
+  background-color: #101418;
+}
+
 @media only screen and (min-width: 600px) {
-   html {
-     background-color: grey;
-  }
 
   body {
     width: 50%;
@@ -10,15 +11,8 @@
     padding: 1%;
   }
 }
-/* Existing layout */
-@media only screen and (min-width: 600px) {
-   html {
-     background-color: grey;
-  }
-}
 
 body {
-    background-color: #101418;
     color: white;
     width: 50%;
     align-content: center;
