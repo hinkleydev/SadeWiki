@@ -123,10 +123,9 @@ if __name__ == "__main__":
 
             # Header
             f.write("<header>\n")
-            f.write("<h1><a href='/index.html'>SadeWiki</a></h1>\n")
             f.write("<nav>\n")
             f.write("<a href='/index.html'>Home</a> | \n")
-            f.write(f"<a href='https://github.com/{REPO}'>GitHub</a>\n")
+            f.write(f"<a href='https://github.com/{REPO}'>Source</a>\n")
             f.write("</nav>\n")
             f.write("</header>\n")
 
