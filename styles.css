@@ -4,7 +4,6 @@
   }
 
   body {
-    background-color: white;
     width: 50%;
     align-content: center;
     margin: auto;
@@ -16,23 +15,21 @@
    html {
      background-color: grey;
   }
+}
 
-  body {
-    background-color: white;
+body {
+    background-color: #101418;
+    color: white;
     width: 50%;
     align-content: center;
     margin: auto;
     padding: 1%;
-  }
 }
 
 /* Header styling */
 header {
-  background-color: #222;
-  color: white;
   padding: 1em;
   text-align: center;
-  border-radius: 8px 8px 0 0;
 }
 
 header h1 {
@@ -67,11 +64,8 @@ main {
 
 /* Footer styling */
 footer {
-  background-color: #222;
-  color: white;
   padding: 1em;
   text-align: center;
-  border-radius: 0 0 8px 8px;
   margin-top: 2em;
 }
 
