@@ -94,6 +94,14 @@ def header(f):
     f.write("</nav>\n")
     f.write("</header>\n")
 
+def footer(file_name, f):
+    f.write("<footer>\n")
+    f.write(f"<p>Made with <3 by the community using <a href='https://github.com/hinkleydev/SadeWiki'>SadeWiki</a> - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
+
+    f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n')
+    f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{file_name}">Edit this page</a>\n')
+    f.write("</footer>\n")
+
 if __name__ == "__main__":
     css_file = "styles.css"
     #token = os.environ["SADE_GH_TOKEN"]
@@ -138,12 +146,7 @@ if __name__ == "__main__":
             f.write("</main>\n")
 
 # Footer
-            f.write("<footer>\n")
-            f.write(f"<p>Made with <3 by the community using <a href='https://github.com/hinkleydev/SadeWiki'>SadeWiki</a> - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
-
-            f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n')
-            f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{each_file}">Edit this page</a>\n')
-            f.write("</footer>\n")
+            footer(each_file, f)
 
             f.write("</body>\n")
             f.write("</html>\n")
