@@ -86,6 +86,14 @@ def authenticate(token):
         user_object = check_auth.json()
         return user_object
 
+def header(f):
+    f.write("<header>\n")
+    f.write("<nav>\n")
+    f.write("<a href='/index.html'>Home</a> | \n")
+    f.write(f"<a href='https://github.com/{REPO}'>Source</a>\n")
+    f.write("</nav>\n")
+    f.write("</header>\n")
+
 if __name__ == "__main__":
     css_file = "styles.css"
     #token = os.environ["SADE_GH_TOKEN"]
@@ -122,12 +130,7 @@ if __name__ == "__main__":
             f.write("<body>\n")
 
             # Header
-            f.write("<header>\n")
-            f.write("<nav>\n")
-            f.write("<a href='/index.html'>Home</a> | \n")
-            f.write(f"<a href='https://github.com/{REPO}'>Source</a>\n")
-            f.write("</nav>\n")
-            f.write("</header>\n")
+            header(f)
 
             # Main content
             f.write("<main>\n")
