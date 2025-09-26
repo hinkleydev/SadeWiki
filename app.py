@@ -151,6 +151,7 @@ if __name__ == "__main__":
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
         index_file.write(f'<link rel="stylesheet" href="{css_file}">\n') # TODO: This should use an absolute URL
+        header(index_file)
         index_file.write("<ul>\n")
         for link in index :
             index_file.write(f"<li><a href='{link}'>{link}</a></li>\n") # TODO: This should use an absolute URL
