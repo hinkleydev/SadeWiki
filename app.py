@@ -136,7 +136,7 @@ if __name__ == "__main__":
 
 # Footer
             f.write("<footer>\n")
-            f.write(f"<p>Made with <3 by the community - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
+            f.write(f"<p>Made with <3 by the community using <a href='https://github.com/hinkleydev/SadeWiki'>SadeWiki</a> - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
 
             f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n')
             f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{each_file}">Edit this page</a>\n')
