@@ -86,6 +86,22 @@ def authenticate(token):
         user_object = check_auth.json()
         return user_object
 
+def header(f):
+    f.write("<header>\n")
+    f.write("<nav>\n")
+    f.write("<a href='/index.html'>Home</a> | \n")
+    f.write(f"<a href='https://github.com/{REPO}'>Source</a>\n")
+    f.write("</nav>\n")
+    f.write("</header>\n")
+
+def footer(file_name, f):
+    f.write("<footer>\n")
+    f.write(f"<p>Made with <3 by the community using <a href='https://github.com/hinkleydev/SadeWiki'>SadeWiki</a> - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
+
+    f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n')
+    f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{file_name}">Edit this page</a>\n')
+    f.write("</footer>\n")
+
 if __name__ == "__main__":
     css_file = "styles.css"
     #token = os.environ["SADE_GH_TOKEN"]
@@ -122,12 +138,7 @@ if __name__ == "__main__":
             f.write("<body>\n")
 
             # Header
-            f.write("<header>\n")
-            f.write("<nav>\n")
-            f.write("<a href='/index.html'>Home</a> | \n")
-            f.write(f"<a href='https://github.com/{REPO}'>Source</a>\n")
-            f.write("</nav>\n")
-            f.write("</header>\n")
+            header(f)
 
             # Main content
             f.write("<main>\n")
@@ -135,12 +146,7 @@ if __name__ == "__main__":
             f.write("</main>\n")
 
 # Footer
-            f.write("<footer>\n")
-            f.write(f"<p>Made with <3 by the community - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
-
-            f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n')
-            f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{each_file}">Edit this page</a>\n')
-            f.write("</footer>\n")
+            footer(each_file, f)
 
             f.write("</body>\n")
             f.write("</html>\n")
@@ -148,11 +154,12 @@ if __name__ == "__main__":
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
         index_file.write(f'<link rel="stylesheet" href="{css_file}">\n') # TODO: This should use an absolute URL
+        header(index_file)
         index_file.write("<ul>\n")
         for link in index :
             index_file.write(f"<li><a href='{link}'>{link}</a></li>\n") # TODO: This should use an absolute URL
         index_file.write("</ul>\n")
-        index_file.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a>')
+        footer("README.html", index_file)
 
     print("Done!")
     PORT = 8000
