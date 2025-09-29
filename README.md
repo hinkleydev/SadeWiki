@@ -43,3 +43,6 @@ jobs:
         with:
           artifact_name: wiki
 ```
+
+## How to get started
+The easiest way to get started is to clone the [template repo](https://github.com/hinkleydev/SadeWiki-template), this includes the workflow YAML and a basic HTML file explaining how to get started.
