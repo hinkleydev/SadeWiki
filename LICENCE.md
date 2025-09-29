@@ -14,3 +14,5 @@ We have to:
 + Be aware of any potential security issues introduced in vulnerabilities (aided by pip audit)
 
 This software is provided with no guarantee.
+
+You are free to modify, distribute this software and use it commercially. Ideally, you will give back to the community by making pull requests for any upgrades you make to the software.
