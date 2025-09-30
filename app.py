@@ -13,6 +13,8 @@ GITHUB_API = "https://api.github.com"
 REPO = os.environ["GITHUB_REPOSITORY"]
 BRANCH = "main" # TODO : Make this dynamic based on the branch deployed from
 headers = {"X-GitHub-Api-Version" : "2022-11-28"}
+VERSION = "1.0"  # Version of SadeWiki, used for cache busting CSS
+# TODO: Make VERSION dynamic based on git tag or commit hash
 
 def check_status(response):
     """
@@ -133,7 +135,7 @@ if __name__ == "__main__":
             f.write("<head>\n")
             f.write(title)
             f.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n')
-            f.write(f'<link rel="stylesheet" href="{css_file}">\n')
+            f.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n')
             f.write("</head>\n")
             f.write("<body>\n")
 
@@ -153,7 +155,7 @@ if __name__ == "__main__":
 
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
-        index_file.write(f'<link rel="stylesheet" href="{css_file}">\n') # TODO: This should use an absolute URL
+        index_file.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n') # TODO: This should use an absolute URL
         header(index_file)
         index_file.write("<ul>\n")
         for link in index :
