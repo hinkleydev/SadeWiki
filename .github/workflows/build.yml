@@ -33,5 +33,6 @@ jobs:
             PYSEC-2024-75 # twisted
             GHSA-c33w-24p9-8m24 # configobj
             PYSEC-2025-49 # setuptools
+            GHSA-4xh5-x5gv-qwph # pip
 
 
