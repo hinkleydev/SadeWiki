@@ -20,7 +20,8 @@ RUN git clone https://github.com/hinkleydev/sade-ci.git .
 RUN pip install -r /requirements.txt
 
 # Generate the docs
-RUN python3 /app.py
+RUN python3 /app.py > /log.txt
+RUN mv /log.txt $GITHUB_WORKSPACE/docs/log.txt
 
 # Serve the docs
 EXPOSE 8080

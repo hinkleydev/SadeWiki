@@ -124,6 +124,7 @@ if __name__ == "__main__":
         with open("_header.md", "r") as header_file:
             header_md = header_file.read()
             header_html = get_html(header_md)
+            print(header_html)
     except FileNotFoundError:
         print("No header file found, continuing without custom header")
 
@@ -132,6 +133,7 @@ if __name__ == "__main__":
         with open("_footer.md", "r") as footer_file:
             footer_md = footer_file.read()
             footer_html = get_html(footer_md)
+            print(footer_html)
     except FileNotFoundError:
         print("No footer file found, continuing without custom footer")
 
