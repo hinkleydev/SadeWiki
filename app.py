@@ -16,6 +16,8 @@ headers = {"X-GitHub-Api-Version" : "2022-11-28"}
 VERSION = "1.0"  # Version of SadeWiki, used for cache busting CSS
 # TODO: Make VERSION dynamic based on git tag or commit hash
 
+
+
 def check_status(response):
     """
     When a response is passed to this, this function will ensure the request is checked for any potential issues.
@@ -115,6 +117,23 @@ if __name__ == "__main__":
     if not os.path.exists(output_directory):
         os.mkdir(output_directory)
     shutil.copy("/" + css_file, output_directory + "/" + css_file)
+
+    # custom header and footer
+    header_html = ""
+    try :
+        with open("_header.md", "r") as header_file:
+            header_md = header_file.read()
+            header_html = get_html(header_md)
+    except FileNotFoundError:
+        print("No header file found, continuing without custom header")
+
+    footer_html = ""
+    try :
+        with open("_footer.md", "r") as footer_file:
+            footer_md = footer_file.read()
+            footer_html = get_html(footer_md)
+    except FileNotFoundError:
+        print("No footer file found, continuing without custom footer")
 
     index = []
     for each_file in files:
