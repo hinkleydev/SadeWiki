@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "command": "bash local_build.sh",
+            "name": "Build and Run SadeWiki",
+            "request": "launch",
+            "type": "node-terminal"
+        }
+    ]
+}
