@@ -157,20 +157,20 @@ if __name__ == "__main__":
             f.write(title)
             f.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n')
             f.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n')
-            f.write("</head>\n")
             f.write("<body>\n")
 
             # Header
             header(f)
+            f.write(header_html) # TODO: HTML is wrote in different ways, needs to be fixed
 
             # Main content
             f.write("<main>\n")
             f.write(html + '\n')
             f.write("</main>\n")
 
-# Footer
+            # Footer
+            f.write(footer_html)
             footer(each_file, f)
-
             f.write("</body>\n")
             f.write("</html>\n")
 
@@ -178,10 +178,12 @@ if __name__ == "__main__":
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
         index_file.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n') # TODO: This should use an absolute URL
         header(index_file)
+        index_file.write(header_html)
         index_file.write("<ul>\n")
         for link in index :
             index_file.write(f"<li><a href='{link}'>{link}</a></li>\n") # TODO: This should use an absolute URL
         index_file.write("</ul>\n")
+        index_file.write(footer_html)
         footer("README.html", index_file)
 
     print("Done!")
