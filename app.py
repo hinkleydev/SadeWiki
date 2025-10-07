@@ -19,13 +19,23 @@ headers = {"X-GitHub-Api-Version" : "2022-11-28"}
 VERSION = "1.0"  # Version of SadeWiki, used for cache busting CSS
 # TODO: Make VERSION dynamic based on git tag or commit hash
 
-system_header = """
+system_header = f"""
 <header>\n
 <nav>\n
 <a href='/index.html'>Home</a> | \n
 <a href='https://github.com/{REPO}'>Source</a>\n
 </nav>\n
 </header>
+"""
+
+index_footer =f"""
+<p>Made with <3 by the community using <a href='https://github.com/hinkleydev/SadeWiki'>SadeWiki</a> - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n
+<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n
+"""
+
+system_footer = f"""
+{index_footer}
+<a href="https://github.com/{REPO}/edit/{BRANCH}/(file)">Edit this page</a>\n
 """
 
 def check_status(response):
@@ -101,15 +111,6 @@ def authenticate(token):
         return user_object
 
 
-
-def footer(file_name, f):
-    f.write("<footer>\n")
-    f.write(f"<p>Made with <3 by the community using <a href='https://github.com/hinkleydev/SadeWiki'>SadeWiki</a> - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
-
-    f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n')
-    f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{file_name}">Edit this page</a>\n')
-    f.write("</footer>\n")
-
 if __name__ == "__main__":
     css_file = "styles.css"
     #token = os.environ["SADE_GH_TOKEN"]
@@ -173,9 +174,11 @@ if __name__ == "__main__":
             f.write("</main>\n")
 
             # Footer
-            f.write(footer_html)
-            footer(each_file, f)
             f.write("</body>\n")
+            f.write("<footer>")
+            f.write(footer_html)
+            f.write(system_footer.replace("(file)", each_file))
+            f.write("</footer>\n")
             f.write("</html>\n")
 
     with open(output_directory + "/index.html", "w") as index_file:
@@ -187,8 +190,10 @@ if __name__ == "__main__":
         for link in index :
             index_file.write(f"<li><a href='{link}'>{link}</a></li>\n") # TODO: This should use an absolute URL
         index_file.write("</ul>\n")
+        index_file.write("<footer>")
         index_file.write(footer_html)
-        footer("README.html", index_file)
+        index_file.write(index_footer)
+        index_file.write("</footer>\n")
 
     print("Done!")
     PORT = 8000
