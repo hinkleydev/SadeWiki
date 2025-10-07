@@ -9,6 +9,7 @@ COPY styles.css /styles.css
 # Clean up the default home directory and set up a new one
 ENV GITHUB_WORKSPACE=/home
 ENV GITHUB_REPOSITORY=hinkleydev/sade-ci
+ENV GITHUB_REF=refs/head/main
 
 RUN rm -rf /home && mkdir /home
 WORKDIR /home

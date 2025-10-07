@@ -11,7 +11,11 @@ from bs4 import BeautifulSoup
 
 GITHUB_API = "https://api.github.com"
 REPO = os.environ["GITHUB_REPOSITORY"]
-BRANCH = "main" # TODO : Make this dynamic based on the branch deployed from
+# branch comes as refs/heads/<branch>
+RAW_BRANCH = os.environ["GITHUB_REF"]
+BRANCH = RAW_BRANCH.split("/")[-1]
+print(f"Working on branch {BRANCH}...")
+# TODO : Make this dynamic based on the branch deployed from
 headers = {"X-GitHub-Api-Version" : "2022-11-28"}
 VERSION = "1.0"  # Version of SadeWiki, used for cache busting CSS
 # TODO: Make VERSION dynamic based on git tag or commit hash
