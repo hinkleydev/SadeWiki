@@ -15,12 +15,18 @@ REPO = os.environ["GITHUB_REPOSITORY"]
 RAW_BRANCH = os.environ["GITHUB_REF"]
 BRANCH = RAW_BRANCH.split("/")[-1]
 print(f"Working on branch {BRANCH}...")
-# TODO : Make this dynamic based on the branch deployed from
 headers = {"X-GitHub-Api-Version" : "2022-11-28"}
 VERSION = "1.0"  # Version of SadeWiki, used for cache busting CSS
 # TODO: Make VERSION dynamic based on git tag or commit hash
 
-
+system_header = """
+<header>\n
+<nav>\n
+<a href='/index.html'>Home</a> | \n
+<a href='https://github.com/{REPO}'>Source</a>\n
+</nav>\n
+</header>
+"""
 
 def check_status(response):
     """
@@ -47,7 +53,7 @@ def get_files():
     :return List of filenames as strings:
     """
     files = glob("*.md")
-    #files = glob("*/*.md") # TODO: Make recursive files work correctly, right now it fails on write
+    #files = glob("*/*.md") # TODO: Make recursive files work correctly, right now it fails on write #16
     return files
 
 def get(path):
@@ -94,13 +100,7 @@ def authenticate(token):
         user_object = check_auth.json()
         return user_object
 
-def header(f):
-    f.write("<header>\n")
-    f.write("<nav>\n")
-    f.write("<a href='/index.html'>Home</a> | \n")
-    f.write(f"<a href='https://github.com/{REPO}'>Source</a>\n")
-    f.write("</nav>\n")
-    f.write("</header>\n")
+
 
 def footer(file_name, f):
     f.write("<footer>\n")
@@ -164,7 +164,7 @@ if __name__ == "__main__":
             f.write("<body>\n")
 
             # Header
-            header(f)
+            f.write(system_header)
             f.write(header_html) # TODO: HTML is wrote in different ways, needs to be fixed
 
             # Main content
@@ -181,7 +181,7 @@ if __name__ == "__main__":
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
         index_file.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n') # TODO: This should use an absolute URL
-        header(index_file)
+        index_file.write(system_header)
         index_file.write(header_html)
         index_file.write("<ul>\n")
         for link in index :
