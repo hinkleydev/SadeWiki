@@ -11,12 +11,32 @@ from bs4 import BeautifulSoup
 
 GITHUB_API = "https://api.github.com"
 REPO = os.environ["GITHUB_REPOSITORY"]
-BRANCH = "main" # TODO : Make this dynamic based on the branch deployed from
+# branch comes as refs/heads/<branch>
+RAW_BRANCH = os.environ["GITHUB_REF"]
+BRANCH = RAW_BRANCH.split("/")[-1]
+print(f"Working on branch {BRANCH}...")
 headers = {"X-GitHub-Api-Version" : "2022-11-28"}
 VERSION = "1.0"  # Version of SadeWiki, used for cache busting CSS
 # TODO: Make VERSION dynamic based on git tag or commit hash
 
+system_header = f"""
+<header>\n
+<nav>\n
+<a href='/index.html'>Home</a> | \n
+<a href='https://github.com/{REPO}'>Source</a>\n
+</nav>\n
+</header>
+"""
 
+index_footer =f"""
+<p>Made with <3 by the community using <a href='https://github.com/hinkleydev/SadeWiki'>SadeWiki</a> - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n
+<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n
+"""
+
+system_footer = f"""
+{index_footer}
+<a href="https://github.com/{REPO}/edit/{BRANCH}/(file)">Edit this page</a>\n
+"""
 
 def check_status(response):
     """
@@ -43,7 +63,7 @@ def get_files():
     :return List of filenames as strings:
     """
     files = glob("*.md")
-    #files = glob("*/*.md") # TODO: Make recursive files work correctly, right now it fails on write
+    #files = glob("*/*.md") # TODO: Make recursive files work correctly, right now it fails on write #16
     return files
 
 def get(path):
@@ -90,21 +110,6 @@ def authenticate(token):
         user_object = check_auth.json()
         return user_object
 
-def header(f):
-    f.write("<header>\n")
-    f.write("<nav>\n")
-    f.write("<a href='/index.html'>Home</a> | \n")
-    f.write(f"<a href='https://github.com/{REPO}'>Source</a>\n")
-    f.write("</nav>\n")
-    f.write("</header>\n")
-
-def footer(file_name, f):
-    f.write("<footer>\n")
-    f.write(f"<p>Made with <3 by the community using <a href='https://github.com/hinkleydev/SadeWiki'>SadeWiki</a> - <a href='https://github.com/{REPO}'>Contribute on GitHub</a></p>\n")
-
-    f.write(f'<a href="https://github.com/{REPO}/new/{BRANCH}">Add new page</a><br>\n')
-    f.write(f'<a href="https://github.com/{REPO}/edit/{BRANCH}/{file_name}">Edit this page</a>\n')
-    f.write("</footer>\n")
 
 if __name__ == "__main__":
     css_file = "styles.css"
@@ -160,8 +165,8 @@ if __name__ == "__main__":
             f.write("<body>\n")
 
             # Header
-            header(f)
-            f.write(header_html) # TODO: HTML is wrote in different ways, needs to be fixed
+            f.write(system_header)
+            f.write(header_html)
 
             # Main content
             f.write("<main>\n")
@@ -169,22 +174,26 @@ if __name__ == "__main__":
             f.write("</main>\n")
 
             # Footer
-            f.write(footer_html)
-            footer(each_file, f)
             f.write("</body>\n")
+            f.write("<footer>")
+            f.write(footer_html)
+            f.write(system_footer.replace("(file)", each_file))
+            f.write("</footer>\n")
             f.write("</html>\n")
 
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
         index_file.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n') # TODO: This should use an absolute URL
-        header(index_file)
+        index_file.write(system_header)
         index_file.write(header_html)
         index_file.write("<ul>\n")
         for link in index :
             index_file.write(f"<li><a href='{link}'>{link}</a></li>\n") # TODO: This should use an absolute URL
         index_file.write("</ul>\n")
+        index_file.write("<footer>")
         index_file.write(footer_html)
-        footer("README.html", index_file)
+        index_file.write(index_footer)
+        index_file.write("</footer>\n")
 
     print("Done!")
     PORT = 8000
