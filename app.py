@@ -166,7 +166,7 @@ if __name__ == "__main__":
 
             # Header
             f.write(system_header)
-            f.write(header_html) # TODO: HTML is wrote in different ways, needs to be fixed
+            f.write(header_html)
 
             # Main content
             f.write("<main>\n")
