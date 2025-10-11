@@ -14,7 +14,7 @@ RAW_BRANCH = os.environ["GITHUB_REF"]
 BRANCH = RAW_BRANCH.split("/")[-1]
 print(f"Working on branch {BRANCH}...")
 headers = {"X-GitHub-Api-Version" : "2022-11-28"}
-VERSION = "1.0"  # Version of SadeWiki, used for cache busting CSS
+VERSION = "1.1"  # Version of SadeWiki, used for cache busting CSS
 # TODO: Make VERSION dynamic based on git tag or commit hash
 
 system_header = f"""
