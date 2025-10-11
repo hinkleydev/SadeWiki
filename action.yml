@@ -3,3 +3,7 @@ description: 'Generate wiki files'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+
+branding:
+  icon: "align-left"
+  color: "blue"
