@@ -4,8 +4,6 @@ import time
 import shutil
 from glob import glob
 import requests
-import http.server
-import socketserver
 import classes
 from bs4 import BeautifulSoup
 
@@ -196,17 +194,3 @@ if __name__ == "__main__":
         index_file.write("</footer>\n")
 
     print("Done!")
-    PORT = 8000
-    """
-    handler = http.server.SimpleHTTPRequestHandler
-    with socketserver.TCPServer(("", PORT), handler) as httpd:
-        # TODO: Make this server port and address dynamic
-        print(f"Serving at http://{httpd.server_address[0]}:{httpd.server_address[1]}/{output_directory}/")
-        print("Press Ctrl+C to exit")
-        try :
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("Keyboard interrupt received, exiting...")
-            httpd.server_close()
-            exit(0)
-    """
