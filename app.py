@@ -121,6 +121,9 @@ if __name__ == "__main__":
         os.mkdir(output_directory)
     shutil.copy("/" + css_file, output_directory + "/" + css_file)
 
+    if os.path.exists("favicon.ico"):
+        shutil.copy("favicon.ico", output_directory + "/favicon.ico")
+
     # custom header and footer
     header_html = ""
     try :
