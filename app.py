@@ -65,7 +65,7 @@ def get_files():
     return files
 
 def recursively_get_files(path):
-    return glob('*/*.md', recursive=True)
+    return glob(f'{path}/*.md', recursive=True)
 
 def get(path):
     """
