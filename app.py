@@ -6,6 +6,7 @@ from glob import glob
 import requests
 import classes
 from bs4 import BeautifulSoup
+from functions import recursively_get_files
 
 GITHUB_API = "https://api.github.com"
 REPO = os.environ["GITHUB_REPOSITORY"]
@@ -64,13 +65,6 @@ def get_files():
     #files = glob("*/*.md") # TODO: Make recursive files work correctly, right now it fails on write #16
     return files
 
-def recursively_get_files(path):
-    walk_list = os.walk(path)
-    file_list = []
-    for (root, dirs, files) in walk_list:
-        for item in files:
-            file_list.append(os.path.join(root, item))
-    return file_list
 
 def get(path):
     """
@@ -121,7 +115,7 @@ if __name__ == "__main__":
     css_file = "styles.css"
     #token = os.environ["SADE_GH_TOKEN"]
     output_directory = os.environ["GITHUB_WORKSPACE"] + "/docs"
-    files = get_files()
+    files = recursively_get_files()
     print(f"Found {len(files)} markdown files to process")
     #auth = authenticate(token)
 
