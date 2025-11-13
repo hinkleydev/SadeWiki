@@ -21,7 +21,7 @@ config = configparser.ConfigParser()
 config.read("/sadewiki.ini")
 
 GLOBAL_TITLE = config.get("global", "title", fallback=None)
-print(GLOBAL_TITLE)
+INDEX_TITLE = config.get("index", "title", fallback=None)
 
 system_header = f"""
 <header>\n
@@ -195,11 +195,10 @@ if __name__ == "__main__":
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
         index_file.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n') # TODO: This should use an absolute URL
-        if GLOBAL_TITLE is not None : # if it's defined
-            print("defined")
+        if INDEX_TITLE is not None :
+            index_file.write(f'<title>{INDEX_TITLE}</title>\n')
+        elif GLOBAL_TITLE is not None :
             index_file.write(f'<title>{GLOBAL_TITLE}</title>\n')
-        else :
-            print("undefined")
         index_file.write(system_header)
         index_file.write(header_html)
         index_file.write("<ul>\n")
