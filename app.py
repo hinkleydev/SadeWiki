@@ -5,6 +5,7 @@ import shutil
 from glob import glob
 import requests
 import classes
+import configparser
 from bs4 import BeautifulSoup
 
 GITHUB_API = "https://api.github.com"
@@ -16,6 +17,11 @@ print(f"Working on branch {BRANCH}...")
 headers = {"X-GitHub-Api-Version" : "2022-11-28"}
 VERSION = "1.1"  # Version of SadeWiki, used for cache busting CSS
 # TODO: Make VERSION dynamic based on git tag or commit hash
+config = configparser.ConfigParser()
+config.read("/sadewiki.ini")
+
+GLOBAL_TITLE = config.get("global", "title", fallback=None)
+print(GLOBAL_TITLE)
 
 system_header = f"""
 <header>\n
@@ -185,6 +191,11 @@ if __name__ == "__main__":
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
         index_file.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n') # TODO: This should use an absolute URL
+        if GLOBAL_TITLE is not None : # if it's defined
+            print("defined")
+            index_file.write(f'<title>{GLOBAL_TITLE}</title>\n')
+        else :
+            print("undefined")
         index_file.write(system_header)
         index_file.write(header_html)
         index_file.write("<ul>\n")

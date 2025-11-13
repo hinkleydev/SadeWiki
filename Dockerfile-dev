@@ -1,10 +1,7 @@
 FROM python:3.12.10-bullseye
 
 # Copy code over
-COPY app.py /app.py
-COPY classes.py /classes.py
-COPY requirements.txt /requirements.txt
-COPY styles.css /styles.css
+COPY . .
 
 # Clean up the default home directory and set up a new one
 ENV GITHUB_WORKSPACE=/home
