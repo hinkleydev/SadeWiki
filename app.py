@@ -158,7 +158,11 @@ if __name__ == "__main__":
         titles = soup.find_all("h1")
         title = ""
         if len(titles) > 0:  # if there is a H1, set it as a title
-            title = "<title>" + titles[0].string + "</title>\n"
+            title = f"<title>{titles[0].string}"
+            if GLOBAL_TITLE is not None :
+                title += f" - {GLOBAL_TITLE} </title>\n"
+            else :
+                title += "</title>\n"
         output_file = each_file.replace(".md", ".html")
         index.append(output_file)
 
