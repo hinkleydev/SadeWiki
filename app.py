@@ -5,6 +5,7 @@ import shutil
 from glob import glob
 import requests
 import classes
+import configparser
 from bs4 import BeautifulSoup
 
 GITHUB_API = "https://api.github.com"
@@ -16,6 +17,11 @@ print(f"Working on branch {BRANCH}...")
 headers = {"X-GitHub-Api-Version" : "2022-11-28"}
 VERSION = "1.1"  # Version of SadeWiki, used for cache busting CSS
 # TODO: Make VERSION dynamic based on git tag or commit hash
+config = configparser.ConfigParser()
+config.read("/sadewiki.ini")
+
+GLOBAL_TITLE = config.get("global", "title", fallback=None)
+INDEX_TITLE = config.get("index", "title", fallback=None)
 
 system_header = f"""
 <header>\n
@@ -152,7 +158,11 @@ if __name__ == "__main__":
         titles = soup.find_all("h1")
         title = ""
         if len(titles) > 0:  # if there is a H1, set it as a title
-            title = "<title>" + titles[0].string + "</title>\n"
+            title = f"<title>{titles[0].string}"
+            if GLOBAL_TITLE is not None :
+                title += f" - {GLOBAL_TITLE} </title>\n"
+            else :
+                title += "</title>\n"
         output_file = each_file.replace(".md", ".html")
         index.append(output_file)
 
@@ -185,6 +195,10 @@ if __name__ == "__main__":
     with open(output_directory + "/index.html", "w") as index_file:
         index_file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0" />')
         index_file.write(f'<link rel="stylesheet" href="{css_file}?v={VERSION}">\n') # TODO: This should use an absolute URL
+        if INDEX_TITLE is not None :
+            index_file.write(f'<title>{INDEX_TITLE}</title>\n')
+        elif GLOBAL_TITLE is not None :
+            index_file.write(f'<title>{GLOBAL_TITLE}</title>\n')
         index_file.write(system_header)
         index_file.write(header_html)
         index_file.write("<ul>\n")
